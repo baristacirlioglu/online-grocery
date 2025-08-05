@@ -1,6 +1,7 @@
 import { LayoutGrid, Search, ShoppingCart } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { Button } from "./ui/button"
 
 const Navbar = () => {
   return (
@@ -33,8 +34,10 @@ const Navbar = () => {
         <div className="flex items-center gap-5">
             <h2 className="flex gap-2 items-center text-lg">
                 <ShoppingCart className="h-7 w-7" />
-                <span className="bg-green-600 text-white px-2 rounded-full">2</span>
+                <span className="bg-green-500 text-white px-2 rounded-full">2</span>
             </h2>
+
+            <Button className="bg-green-600">Login</Button>
 
         </div>
 
