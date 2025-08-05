@@ -2,7 +2,7 @@
 
 import { useCategoriesStore } from "@/hooks/useCategoriesStore";
 import { LayoutGrid } from "lucide-react"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   DropdownMenu,
@@ -46,21 +46,20 @@ const CategoryButton = () => {
             <DropdownMenuContent>
                 <DropdownMenuLabel>Browse Categories</DropdownMenuLabel>
                 <DropdownMenuSeparator />
-                {categories.map((category, index) => (
-                    <Link key={index} href={'/product-category/' + category?.name}>
-                        <DropdownMenuItem className="flex gap-3 items-center cursor-pointer">
-                            <Image
-                                alt="icon"
-                                width={30}
-                                height={30}
-                                unoptimized= {true}
-                                src= {
-                                    process.env.NEXT_PUBLIC_BACKEND_BASE_URL + category?.icon?.data?.attributes?.url
-                                }
-                            />
-                        </DropdownMenuItem>
-                    </Link>
-                ))}
+                {categories.map((category, index) => <Link key={index} href={`/product-category/${category?.name}`}>
+                    <DropdownMenuItem className="flex gap-3 items-center cursor-pointer">
+                        <Image
+                            alt="icon"
+                            width={30}
+                            height={30}
+                            unoptimized
+                            src= {
+                                process.env.NEXT_PUBLIC_BACKEND_BASE_URL + category?.icon
+                            }
+                        />
+                        <p>{category?.name}</p>
+                    </DropdownMenuItem>
+                </Link>)}
             </DropdownMenuContent>
         </DropdownMenu>
         
