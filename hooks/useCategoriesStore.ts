@@ -12,7 +12,7 @@ export const useCategoriesStore = create<CategoryState>((set) => ({
   fetchCategories: async () => {
     try {
       const response = await axios.get(
-        "http://localhost:1337/api/categories?populate=*"
+        "http://localhost:1337/api/categories?sort[0]=name:asc&populate=*"
       );
       set({
         categories: response.data.data.map(

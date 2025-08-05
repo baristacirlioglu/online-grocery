@@ -57,7 +57,7 @@ const CategoryButton = () => {
                                 process.env.NEXT_PUBLIC_BACKEND_BASE_URL + category?.icon
                             }
                         />
-                        <p>{category?.name}</p>
+                        <h2>{category.name}</h2>
                     </DropdownMenuItem>
                 </Link>)}
             </DropdownMenuContent>

@@ -4,3 +4,8 @@ export type Category = {
   color: string;
   icon: string;
 };
+
+export type Slider = {
+  id: number;
+  url: string;
+};
