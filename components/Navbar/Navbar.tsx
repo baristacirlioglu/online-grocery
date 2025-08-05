@@ -1,3 +1,4 @@
+'use client'
 import { Search, ShoppingCart } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -18,7 +19,7 @@ const Navbar = () => {
               />
             </Link>
 
-          <CategoryButton />
+          <CategoryButton/>
 
             <div className="md:flex hidden gap-2 items-center border rounded-full p-2 px-5">
                 <Search className="h-5 w-5"/>
