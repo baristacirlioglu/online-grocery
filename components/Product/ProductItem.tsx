@@ -33,7 +33,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
         </h2>
       </div>
       <Dialog>
-        <DialogTrigger>
+        <DialogTrigger asChild>
           <Button
             variant="outline"
             className="bg-green-600 text-white hover:bg-green-300"
