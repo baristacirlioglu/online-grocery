@@ -1,5 +1,14 @@
 import { Product } from "@/types";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface ProductItemProps {
   product: Product;
@@ -22,6 +31,16 @@ const ProductItem = ({ product }: ProductItemProps) => {
           ${product.mrp}
         </h2>
       </div>
+      <Dialog>
+        <DialogTrigger>
+          <Button
+            variant="outline"
+            className="bg-green-600 text-white hover:bg-green-300"
+          >
+            Add To Cart
+          </Button>
+        </DialogTrigger>
+      </Dialog>
     </div>
   );
 };
