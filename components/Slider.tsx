@@ -21,7 +21,7 @@ const Slider = ({ sliderList }: SliderProps) => {
             width={1000}
             height={400}
             alt='slider'
-            className="w-full object-cover rounded-xl"
+            className="w-full h-[200px] md:h-[375px] object-cover rounded-xl"
             unoptimized
             src= {process.env.NEXT_PUBLIC_BACKEND_BASE_URL + slider?.url?.url}            
             />
