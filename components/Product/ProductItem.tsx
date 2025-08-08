@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import ProductItemDetail from "./ProductItemDetail";
 
 interface ProductItemProps {
   product: Product;
@@ -40,6 +41,14 @@ const ProductItem = ({ product }: ProductItemProps) => {
             Add To Cart
           </Button>
         </DialogTrigger>
+
+        <DialogContent>
+          <DialogHeader>
+            <DialogDescription>
+              <ProductItemDetail product={product} />
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
       </Dialog>
     </div>
   );
