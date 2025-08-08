@@ -88,6 +88,10 @@ const ProductItemDetail = ({ product }: ProductItemDetailProps) => {
               )}
             </Button>
           </div>
+          <h2>
+            <span className="font-bold ml-2">Category : </span>
+            {product.categories[0].name}
+          </h2>
         </div>
       </div>
     </div>
