@@ -1,7 +1,7 @@
-'use client'
+"use client";
 
 import { useCategoriesStore } from "@/hooks/useCategoriesStore";
-import { LayoutGrid } from "lucide-react"
+import { LayoutGrid } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import {
@@ -17,15 +17,13 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 import Image from "next/image";
 
 const CategoryButton = () => {
-
   const categories = useCategoriesStore((state) => state.categories);
   const fetchCategories = useCategoriesStore((state) => state.fetchCategories);
-
 
   const [fetched, setFetched] = useState(false);
 
@@ -36,34 +34,34 @@ const CategoryButton = () => {
 
   return (
     <div>
-        
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                <h2 className="hidden md:flex gap-2 items-center border rounded-full p-2 px-10 bg-slate-200 cursor-pointer">
-                    <LayoutGrid className="h-5 w-5"/> Category
-                </h2>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-                <DropdownMenuLabel>Browse Categories</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {categories.map((category, index) => <Link key={index} href={`/product-category/${category?.name}`}>
-                    <DropdownMenuItem className="flex gap-3 items-center cursor-pointer">
-                        <Image
-                            alt="icon"
-                            width={30}
-                            height={30}
-                            unoptimized
-                            src= {
-                                process.env.NEXT_PUBLIC_BACKEND_BASE_URL + category?.icon
-                            }
-                        />
-                        <h2>{category.name}</h2>
-                    </DropdownMenuItem>
-                </Link>)}
-            </DropdownMenuContent>
-        </DropdownMenu>
-        
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <h2 className="hidden md:flex gap-2 items-center border rounded-full p-2 px-10 bg-slate-200 cursor-pointer">
+            <LayoutGrid className="h-5 w-5" /> Category
+          </h2>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>Browse Categories</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          {categories.map((category, index) => (
+            <Link key={index} href={`/product-category/${category?.name}`}>
+              <DropdownMenuItem className="flex gap-3 items-center cursor-pointer">
+                <Image
+                  alt="icon"
+                  width={30}
+                  height={30}
+                  unoptimized
+                  src={
+                    process.env.NEXT_PUBLIC_BACKEND_BASE_URL + category?.icon
+                  }
+                />
+                <h2>{category.name}</h2>
+              </DropdownMenuItem>
+            </Link>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
-  )
-}
-export default CategoryButton
+  );
+};
+export default CategoryButton;

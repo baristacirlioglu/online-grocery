@@ -4,31 +4,31 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "@/components/ui/carousel"
+} from "@/components/ui/carousel";
 import Image from "next/image";
 
-    interface SliderProps {
-        sliderList: Slider[];
-    }
+interface SliderProps {
+  sliderList: Slider[];
+}
 
 const Slider = ({ sliderList }: SliderProps) => {
   return (
     <Carousel>
       <CarouselContent>
         {sliderList.map((slider, index) => (
-            <CarouselItem key={index} >
+          <CarouselItem key={index}>
             <Image
-            width={1000}
-            height={400}
-            alt='slider'
-            className="w-full h-[200px] md:h-[375px] object-cover rounded-xl"
-            unoptimized
-            src= {process.env.NEXT_PUBLIC_BACKEND_BASE_URL + slider?.url?.url}            
+              width={1000}
+              height={400}
+              alt="slider"
+              className="w-full h-[200px] md:h-[375px] object-cover rounded-xl"
+              unoptimized
+              src={process.env.NEXT_PUBLIC_BACKEND_BASE_URL + slider?.url?.url}
             />
-            </CarouselItem>
+          </CarouselItem>
         ))}
       </CarouselContent>
     </Carousel>
-  )
-}
-export default Slider
+  );
+};
+export default Slider;
