@@ -2,6 +2,7 @@ import { getCategories } from "@/actions/getCategories";
 import { getProducts } from "@/actions/getProducts";
 import { getSlider } from "@/actions/getSlider";
 import Categories from "@/components/Categories";
+import Footer from "@/components/Footer/Footer";
 import ProductList from "@/components/Product/ProductList";
 import Slider from "@/components/Slider";
 import Image from "next/image";
