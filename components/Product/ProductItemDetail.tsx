@@ -1,10 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { MouseEventHandler, useState } from "react";
 
 import { Product } from "@/types";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { LoaderCircle, ShoppingBasket } from "lucide-react";
+import useCart from "@/hooks/use-cart";
 
 interface ProductItemDetailProps {
   product: Product;
@@ -25,6 +26,22 @@ const ProductItemDetail = ({ product }: ProductItemDetailProps) => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
     }
+  };
+
+  const cart = useCart();
+  const [totalPrice, setTotalPrice] = useState(0);
+
+  const onAddCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation();
+    setLoading(true);
+
+    const productToAdd = { ...product, quantity };
+    cart.addItem(productToAdd, quantity, quantity * productTotalPrice);
+
+    const totalPrice = parseFloat(productToAdd.sellingPrice) * quantity;
+    setTotalPrice((prevTotalPrice) => prevTotalPrice + totalPrice);
+
+    setLoading(false);
   };
 
   return (
@@ -79,7 +96,11 @@ const ProductItemDetail = ({ product }: ProductItemDetailProps) => {
               </div>
               <h2>${(quantity * productTotalPrice).toFixed(2)}</h2>
             </div>
-            <Button disabled={loading}>
+            <Button
+              disabled={loading}
+              onClick={onAddCart}
+              className="cursor-pointer"
+            >
               <ShoppingBasket />
               {loading ? (
                 <LoaderCircle className="animate-spin" />
