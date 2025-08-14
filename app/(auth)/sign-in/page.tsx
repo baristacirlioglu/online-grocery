@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Loader2Icon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -35,6 +36,14 @@ const SignInPage = () => {
           >
             {loader ? <Loader2Icon className="animate-spin" /> : "Sign In"}
           </Button>
+
+          <p className="font-semibold text-center">
+            Don't have an account yet?
+            <br />
+            <Link href="/create-user" className="text-green-600">
+              Click here to create an account
+            </Link>
+          </p>
         </div>
       </div>
     </div>
