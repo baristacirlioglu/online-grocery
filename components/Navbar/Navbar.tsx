@@ -73,7 +73,10 @@ const Navbar = () => {
                   My Order
                 </DropdownMenuCheckboxItem>
               </Link>
-              <DropdownMenuCheckboxItem onClick={onSignout}>
+              <DropdownMenuCheckboxItem
+                className="cursor-pointer"
+                onClick={onSignout}
+              >
                 Logout
               </DropdownMenuCheckboxItem>
             </DropdownMenuContent>

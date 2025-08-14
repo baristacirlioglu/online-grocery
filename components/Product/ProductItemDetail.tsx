@@ -5,15 +5,32 @@ import { Product } from "@/types";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { LoaderCircle, ShoppingBasket } from "lucide-react";
-import useCart from "@/hooks/use-cart";
+import useStore from "@/hooks/useStore";
+import { AddtoCart } from "@/actions/cart/AddToCart";
 
 interface ProductItemDetailProps {
   product: Product;
 }
 
 const ProductItemDetail = ({ product }: ProductItemDetailProps) => {
-  const [quantity, setQuantity] = React.useState(1);
+  const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(false);
+
+  let jwt = "";
+  let user = "";
+  let userId = "";
+
+  try {
+    jwt = localStorage.getItem("jwt");
+    user = localStorage.getItem("user");
+    if (user) {
+      const userObj = JSON.parse(user);
+      userId = userObj.id;
+    }
+  } catch (error) {
+    console.error("error", error);
+  }
+
   const [productTotalPrice, setProductTotalPrice] = useState(
     product.sellingPrice ? product.sellingPrice : product.mrp
   );
@@ -28,20 +45,34 @@ const ProductItemDetail = ({ product }: ProductItemDetailProps) => {
     }
   };
 
-  const cart = useCart();
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const onAddCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+  const addItem = useStore((state) => state.addItem);
+  const fetchItems = useStore((state) => state.fetchItems);
+
+  const onAddCart: MouseEventHandler<HTMLButtonElement> = async (event) => {
     event.stopPropagation();
-    setLoading(true);
 
-    const productToAdd = { ...product, quantity };
-    cart.addItem(productToAdd, quantity, quantity * productTotalPrice);
+    try {
+      setLoading(true);
+      const data = {
+        data: {
+          quantity: quantity,
+          amount: (quantity * productTotalPrice).toFixed(2),
+          products: product.id,
+          users_permissions_user: userId,
+          userId: userId,
+        },
+      };
 
-    const totalPrice = parseFloat(productToAdd.sellingPrice) * quantity;
-    setTotalPrice((prevTotalPrice) => prevTotalPrice + totalPrice);
-
-    setLoading(false);
+      await AddtoCart(data, jwt);
+      addItem({ data });
+      fetchItems(userId, jwt);
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
