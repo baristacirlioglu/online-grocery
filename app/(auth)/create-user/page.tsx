@@ -1,18 +1,57 @@
 "use client";
+import registerUser from "@/actions/register";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import useAuthStore from "@/hooks/useAuthStore";
+import { startSession } from "@/lib/session";
 import { Loader2Icon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 
 const CreateUserPage = () => {
-  const [email, setEmail] = useState<string | undefined>();
-  const [username, setUsername] = useState<string | undefined>();
-  const [password, setPassword] = useState<string | undefined>();
+  const {
+    email,
+    username,
+    password,
+    loader,
+    setEmail,
+    setUsername,
+    setPassword,
+    setLoader,
+  } = useAuthStore();
   const router = useRouter();
-  const [loader, setLoader] = useState();
+  const onSignup = async () => {
+    setLoader(true);
+    try {
+      const resp = await registerUser(username, email, password);
+      startSession(resp.user, resp.jwt);
+      toast.success("Account Created Successfully.", {
+        style: {
+          background: "#16a34a", // Tailwind green-600
+          color: "white",
+        },
+        icon: "✅",
+      });
+      router.push("/");
+    } catch (error: any) {
+      toast.error(
+        error?.response?.data?.error?.message || "Something went wrong",
+        {
+          style: {
+            background: "#dc2626", // Tailwind red-600
+            color: "white",
+          },
+          icon: "❌",
+        }
+      );
+    } finally {
+      setLoader(false);
+    }
+  };
+
   return (
     <div className="flex items-baseline justify-center my-20">
       <div className="flex flex-col items-center justify-center p-10 border border-gray-300">
@@ -39,6 +78,7 @@ const CreateUserPage = () => {
           />
           <Button
             disabled={!email || !password || !username}
+            onClick={onSignup}
             className="bg-green-600 cursor-pointer"
           >
             {loader ? <Loader2Icon className="animate-spin" /> : "Sign Up"}
