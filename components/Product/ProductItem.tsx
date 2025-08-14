@@ -43,6 +43,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
         </DialogTrigger>
 
         <DialogContent className="sm:max-w-[725px]">
+          <DialogTitle></DialogTitle>
           <DialogHeader>
             <DialogDescription>
               <ProductItemDetail product={product} />
